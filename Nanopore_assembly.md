@@ -30,6 +30,7 @@ rm -r ~/ENV
 The information is this:
 ```
 	dna_r10.4.1_e8.2_400bps_5khz_hac.cfg
+    which is probably this: dna_r10.4.1_e8.2_400bps_hac@v5.0.0
 	flow_cell_product_code: FLO-PRO114M
 	sequencing_kit: sqk-lsk114
 ```
