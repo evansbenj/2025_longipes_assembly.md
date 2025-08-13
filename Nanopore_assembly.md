@@ -32,3 +32,8 @@ The information is this:
 	flow_cell_product_code: FLO-PRO114M
 	sequencing_kit: sqk-lsk114
 ```
+
+Now re-base call with Dorado:
+```
+
+```
