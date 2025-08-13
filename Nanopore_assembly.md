@@ -55,3 +55,8 @@ module load StdEnv/2023 dorado/1.0.2
 
 dorado basecaller /home/ben/projects/rrg-ben/ben/2025_longipes/dorado_modelz/dna_r10.4.1_e8.2_400bps_hac@v5.0.0 ${1} --output-dir ${2}
 ```
+Centrifuge can be loaded like this:
+```
+module load StdEnv/2023  gcc/12.3 centrifuge/1.0.4.2
+```
+
