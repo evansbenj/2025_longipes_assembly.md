@@ -11,14 +11,24 @@ When running hifiasm, make sure to provide the estimated ploidy as a parameter. 
 Following assembly, you may be able to use the relatives for scaffolding with RagTag - it's unlikely that you can phase the genome at this coverage but you may be able to get to a chromosome structure.
 ```
 
-To figure out kit information, I needed to use a python wheel called `pod5`:
-
+To figure out kit information, I needed to use a python wheel called `pod5`. First change to this directory:
+```
+cd /home/ben/projects/rrg-ben/ben/2025_longipes/2024DEC03_OrgOne_Xlongipes_LSK114/2024DEC03_OrgOne_Xlongipes_LSK114_1/20241203_1439_2G_PBA52991_fc23f09c/pod5
+```
+Now use this command to get the flow cell and sequencing kit information:
 ```
 module load arrow/14.0.1 python/3.11
 virtualenv --no-download --clear ~/ENV && source ~/ENV/bin/activate
 pip install --no-index --upgrade pip
 pip install --no-index pod5
 pip freeze --local > pod5-reqs.txt
+pod5 inspect debug PBA52991_fc23f09c_b56e70b8_27.pod5 | grep -E "flow_cell_product_code|sequencing_kit"
 deactivate 
 rm -r ~/ENV
+```
+
+The information is this:
+```
+	flow_cell_product_code: FLO-PRO114M
+	sequencing_kit: sqk-lsk114
 ```
