@@ -40,7 +40,7 @@ Now re-base call with Dorado:
 #!/bin/sh
 #SBATCH --job-name=dorado
 #SBATCH --nodes=1
-#SBATCH --ntasks-per-node=1
+#SBATCH --ntasks-per-node=192
 #SBATCH --time=166:00:00
 #SBATCH --mem=8gb
 #SBATCH --output=dorado.%J.out
@@ -58,5 +58,14 @@ dorado basecaller /home/ben/projects/rrg-ben/ben/2025_longipes/dorado_modelz/dna
 Centrifuge can be loaded like this:
 ```
 module load StdEnv/2023  gcc/12.3 centrifuge/1.0.4.2
+```
+Install the dabase like this:
+```
+git clone https://github.com/infphilo/centrifuge.git
+cd centrifuge/indices
+module load centrifuge
+make p+h+v
+make p_compressed
+make p_compressed+h+v
 ```
 
