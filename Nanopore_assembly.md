@@ -59,7 +59,7 @@ Centrifuge can be loaded like this:
 ```
 module load StdEnv/2023  gcc/12.3 centrifuge/1.0.4.2
 ```
-Install the dabase like this:
+Using screen, install the dabase as detailed below. You can check what node you are on by typing: `hostname` and then logout and login and ssh to this node later to re-enter the screen:
 ```
 git clone https://github.com/infphilo/centrifuge.git
 cd centrifuge/indices
@@ -68,4 +68,7 @@ make p+h+v
 make p_compressed
 make p_compressed+h+v
 ```
-
+Now the centrifuge database is here:
+```
+/home/ben/projects/rrg-ben/ben/ben_scripts/centrifuge/indices
+```
