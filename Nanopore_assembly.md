@@ -62,6 +62,7 @@ module load StdEnv/2023  gcc/12.3 centrifuge/1.0.4.2
 Using screen, install the dabase as detailed below. You can check what node you are on by typing: `hostname` and then logout and login and ssh to this node later to re-enter the screen by ssh ben@hostname:
 ```
 module load StdEnv/2023 perl/5.36.1
+module load StdEnv/2020  gcc/9.3.0 masurca/4.1.0
 git clone https://github.com/infphilo/centrifuge.git
 cd centrifuge/indices
 module load centrifuge
