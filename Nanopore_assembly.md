@@ -55,6 +55,23 @@ module load StdEnv/2023 dorado/1.0.2
 
 dorado basecaller /home/ben/projects/rrg-ben/ben/2025_longipes/dorado_modelz/dna_r10.4.1_e8.2_400bps_hac@v5.0.0 ${1} --output-dir ${2}
 ```
+
+# Convert to fastq
+```
+#!/bin/sh
+#SBATCH --job-name=bam2fq
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --time=6:00:00
+#SBATCH --mem=2gb
+#SBATCH --output=bam2fq.%J.out
+#SBATCH --error=bam2fq.%J.err
+#SBATCH --account=rrg-ben
+
+module load StdEnv/2023 samtools/1.22.1
+samtools fastq -T "*" ${1}.bam > ${1}.fastq
+```
+
 Centrifuge can be loaded like this:
 ```
 module load StdEnv/2023  gcc/12.3 centrifuge/1.0.4.2
