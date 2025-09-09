@@ -91,3 +91,21 @@ Now the centrifuge database is here:
 ```
 /home/ben/projects/rrg-ben/ben/ben_scripts/centrifuge/indices
 ```
+Here is an sbatch script to run it:
+```
+#!/bin/sh
+#SBATCH --job-name=centrifuge
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --time=6:00:00
+#SBATCH --mem=64gb
+#SBATCH --output=centrifuge.%J.out
+#SBATCH --error=centrifuge.%J.err
+#SBATCH --account=rrg-ben
+
+module load StdEnv/2023  gcc/12.3 centrifuge/1.0.4.2
+
+# centrifuge -p 1 -x /home/ben/projects/rrg-ben/ben/ben_scripts/centrifuge/indices/p_compressed_h_v -U ${1} -S ${1}_classifications.txt --report-file ${1}_report.tsv
+
+centrifuge -x /home/ben/projects/rrg-ben/ben/ben_scripts/centrifuge/indices/p_compressed -U ${1} -S ${1}_classifications.txt --report-file ${1}_report.tsv
+```
