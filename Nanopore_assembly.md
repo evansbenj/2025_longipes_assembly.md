@@ -62,8 +62,8 @@ dorado basecaller /home/ben/projects/rrg-ben/ben/2025_longipes/dorado_modelz/dna
 #SBATCH --job-name=bam2fq
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
-#SBATCH --time=6:00:00
-#SBATCH --mem=2gb
+#SBATCH --time=4:00:00
+#SBATCH --mem=8gb
 #SBATCH --output=bam2fq.%J.out
 #SBATCH --error=bam2fq.%J.err
 #SBATCH --account=rrg-ben
