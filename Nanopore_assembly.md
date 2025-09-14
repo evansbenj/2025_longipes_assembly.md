@@ -42,18 +42,14 @@ Now re-base call with Dorado:
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=192
 #SBATCH --time=166:00:00
-#SBATCH --mem=8gb
+#SBATCH --mem=512gb
 #SBATCH --output=dorado.%J.out
 #SBATCH --error=dorado.%J.err
 #SBATCH --account=rrg-ben
 
 module load StdEnv/2023 dorado/1.0.2
 
-#dorado basecaller /home/ben/projects/rrg-ben/ben/2025_longipes/dorado_modelz/dna_r10.4.1_e8.2_400bps_hac@v5.0.0 ../2024DEC03_OrgOne_Xlongipes_LSK114/2024DEC03_OrgOne_Xlongipes_LSK114_1/20241203_1439_2G_PBA52991_fc23f09c/pod5 > /home/ben/scratch/longipes_flye_assembly/run1_sup.bam
-
-# sbatch 2025_dorado_sup.sh /home/ben/projects/rrg-ben/ben/2025_longipes/2024DEC03_Org\One_Xlongipes_LSK114/2024DEC03_OrgOne_Xlongipes_LSK114_1/20241203_1439_2G_PBA52991_fc23f09c/pod5 /home/ben/scratch/longipes_flye_assembly/run1_sup.bam
-
-dorado basecaller /home/ben/projects/rrg-ben/ben/2025_longipes/dorado_modelz/dna_r10.4.1_e8.2_400bps_hac@v5.0.0 ${1} --output-dir ${2}
+/home/ben/projects/rrg-ben/ben/2025_bin/dorado-1.1.1-linux-x64/bin/dorado basecaller sup ${1} --output-dir ${2} -b 192
 ```
 
 # Convert to fastq
