@@ -38,3 +38,12 @@ module load StdEnv/2023 gcc/12.3 blast+/2.14.1
 
 blastn -query ${1} -db ${2} -outfmt 6 -out ${1}_to_${2}
 ```
+
+# Identify perfect matches
+```
+grep '100.000' long_significant_markers_0.0001.fasta_to_assembly.fasta.gz_blastable > perfect_matches.txt
+```
+# Now figure out what unique contigs they are on:
+```
+cut -d '   ' -f 2 perfect_matches.txt | sort | uniq > unique_female_specific_contigs.txt
+```
