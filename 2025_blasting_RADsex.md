@@ -44,6 +44,8 @@ blastn -query ${1} -db ${2} -outfmt 6 -out ${1}_to_${2}
 grep '100.000' long_significant_markers_0.0001.fasta_to_assembly.fasta.gz_blastable > perfect_matches.txt
 ```
 # Now figure out what unique contigs they are on:
+
+The -c argument on the uniq command provides the count (the number of time each contig has a perfect match)
 ```
-cut -d '   ' -f 2 perfect_matches.txt | sort | uniq > unique_female_specific_contigs.txt
+cut -d '   ' -f 2 perfect_matches.txt | sort | uniq -c > unique_female_specific_contigs.txt
 ```
