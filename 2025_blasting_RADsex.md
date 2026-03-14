@@ -82,7 +82,16 @@ I blasted these against the longipes flye genome. 24 hit 5 or less contigs; 14 h
 
 When I focused on tags that had mostly unique hits (matches to 5 or less contigs), most of the hits were to different contigs (67 in total). There were three contigs that had 2 hits from mostly unique tags: contig_175829, contig_35104, and contig_47634. No contig had 3 hits from mostly unique tags 
 
+Then I blasted this XL file against the longipes flye assemblyw:
 ```
 /home/ben/projects/rrg-ben/ben/2025_allo_PacBio_assembly/Adam_boum_genome_assembly/XL_CDS_only_nospaces.fasta
 ```
+
+XLgenes from several chrs hit contig_175829, but there were big matches from Chr3L:50602524-50603648 and Chr3S:103895309-103896427
+
+XLgenes from several chrs hit contig_35104, but many were around Chr2S:141958902-141959052 and Chr2S:157398589-157398687
+
+XLgenes mostly from Chr4L and 4S hit contig_47634: Chr4L:15581489-15581560 to Chr4L:15605557-15606836 and Chr4S:8326631-8327910 to Chr4S:8357975-8358046
+
+
 
