@@ -74,3 +74,15 @@ blastn -query ../../2021_XL_v10_refgenome/XL_CDS_only.fasta -db tig00008587_1_10
 
 This produces a file that can be downloaded, opened with excel, and sorted by column 9 (sstart, "I") and column 3 (pident "C"). 
 
+# 2026 
+
+I am trying this again using RADsex tags that have P<0.005 and that are female biased. These all have at least 17 females and four or less males.
+
+I blasted these against the longipes flye genome. 24 hit 5 or less contigs; 14 hit 19 or many more contigs.
+
+When I focused on tags that had mostly unique hits (matches to 5 or less contigs), most of the hits were to different contigs (67 in total). There were three contigs that had 2 hits from mostly unique tags: contig_175829, contig_35104, and contig_47634. No contig had 3 hits from mostly unique tags 
+
+```
+/home/ben/projects/rrg-ben/ben/2025_allo_PacBio_assembly/Adam_boum_genome_assembly/XL_CDS_only_nospaces.fasta
+```
+
