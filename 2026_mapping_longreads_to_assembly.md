@@ -1,5 +1,11 @@
 # Index genome for minimap2
 
+Working in this directory on nibi:
+```
+/home/ben/projects/rrg-ben/ben/2025_longipes/flye_assembly
+```
+
+# Index the genome
 ```
 #!/bin/sh
 #SBATCH --job-name=minimap2
