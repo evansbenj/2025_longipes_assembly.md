@@ -19,7 +19,7 @@ Working in this directory on nibi:
 
 # sbatch 2024_minimap2.sh ref.fasta query.fasta
 
-module load StdEnv/2023 minimap2/2.26
+module load StdEnv/2023 minimap2/2.28
 minimap2 -d ${1}.mmi ${1}.fasta
 ```
 # Now map the longread data
@@ -36,7 +36,7 @@ minimap2 -d ${1}.mmi ${1}.fasta
 
 # sbatch 2024_minimap2.sh ref.fasta query.fasta
 
-module load StdEnv/2023 minimap2/2.26
+module load StdEnv/2023 minimap2/2.28
 #minimap2 -x asm10 --secondary=no -t8 ${1} ${2} > ${2}_alignments.paf
 
 #minimap2 -ax lr:hq -t 12 reference.fa reads.fastq > alignment.sam
