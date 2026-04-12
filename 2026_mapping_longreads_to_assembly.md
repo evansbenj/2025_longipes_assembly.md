@@ -66,3 +66,28 @@ module load StdEnv/2023 minimap2/2.28 samtools/1.22.1
 
 minimap2 -ax map-hifi --split-prefix prefix -t 12 ${1} ${2} > ${3}_alignment.sorted.sam
 ```
+
+# Sam2Bam for long reads
+
+This requires some flags that differ compared to short reads in order to avoid problems...
+```
+#!/bin/sh
+#SBATCH --job-name=sam2bam
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --time=24:00:00
+#SBATCH --mem=8gb
+#SBATCH --output=sam2bam.%J.out
+#SBATCH --error=sam2bam.%J.err
+#SBATCH --account=rrg-ben
+
+# run by passing an argument like this
+# sbatch 2023_samtools_sam_to_bam.sh file_prefix
+
+module load StdEnv/2023 samtools/1.22.1
+#samtools view -b -S ${1}.sam > ${1}.bam
+#samtools sort ${1}.bam ${1}_sorted
+#samtools index ${1}_sorted.bam
+samtools sort -@ 4 -O BAM -o ${1}_strictly_sorted.bam ${1}.bam
+samtools index -c ${1}_strictly_sorted.bam
+```
