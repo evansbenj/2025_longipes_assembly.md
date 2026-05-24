@@ -84,3 +84,13 @@ output is here:
 ```
 awk '{print $2, $9, $10, $1}' XL_CDS_only.fasta_to_assembly.fasta.gz_blastable > XL_CDS_only.fasta_to_assembly.fasta.gz_blastable.bed
 ```
+
+# Change the spaces to tabs
+```
+sed -ie 's/ /    /g' XL_CDS_only.fasta_to_assembly.fasta.gz_blastable.bed
+```
+
+# Load Bioconductor on ComputeCanada
+```
+module load  StdEnv/2023  gcc/12.3 r-bundle-bioconductor/3.21
+```
