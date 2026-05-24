@@ -94,3 +94,103 @@ sed -ie 's/ /    /g' XL_CDS_only.fasta_to_assembly.fasta.gz_blastable.bed
 ```
 module load  StdEnv/2023  gcc/12.3 r-bundle-bioconductor/3.21
 ```
+
+# Identify overlapz
+```R
+#!/usr/bin/env Rscript
+
+# To run:
+# script Overlap_Genomic_ranges.R fileA.txt fileB.txt output.txt
+
+# Generate the first file from a blast output like this:
+# awk '{print $2, $9, $10, $1}' blastoutput > fileA.txt
+
+# Generate the second file using a perl script to make intervals
+# out of the output of: amtools depth -aa ${1} | grep '	0' >> ${1}_zerodepth_aa.txt
+
+suppressPackageStartupMessages(library(GenomicRanges))
+
+# ---- Read input arguments ----
+args <- commandArgs(trailingOnly = TRUE)
+
+if (length(args) < 2) {
+  stop("Usage: script.R fileA.txt fileB.txt [output.txt]")
+}
+
+fileA <- args[1]
+fileB <- args[2]
+outfile <- ifelse(length(args) >= 3, args[3], NA)
+
+# ---- Read files ----
+
+
+A <- read.table(fileA, header = FALSE, sep = "",
+                stringsAsFactors = FALSE, quote = "")
+
+B <- read.table(fileB, header = FALSE, sep = "",
+                stringsAsFactors = FALSE, quote = "")
+
+# Assign column names
+colnames(A)[1:4] <- c("chr", "start", "end", "label")
+colnames(B)[1:3] <- c("chr", "start", "end")
+
+# fix order of start stop
+
+
+# Ensure numeric
+A$start <- as.numeric(A$start)
+A$end   <- as.numeric(A$end)
+B$start <- as.numeric(B$start)
+B$end   <- as.numeric(B$end)
+
+# Remove NA rows
+A <- A[!is.na(A$start) & !is.na(A$end), ]
+B <- B[!is.na(B$start) & !is.na(B$end), ]
+
+# Fix coordinate order properly
+A_start <- pmin(A$start, A$end)
+A_end   <- pmax(A$start, A$end)
+A$start <- A_start
+A$end   <- A_end
+
+B_start <- pmin(B$start, B$end)
+B_end   <- pmax(B$start, B$end)
+B$start <- B_start
+B$end   <- B_end
+
+# Safety check
+if (any(A$end < A$start)) stop("A still has invalid intervals")
+if (any(B$end < B$start)) stop("B still has invalid intervals")
+
+
+# ---- Convert to GRanges ----
+grA <- GRanges(seqnames = A$chr,
+               ranges = IRanges(start = A$start, end = A$end),
+               label = A$label)
+
+grB <- GRanges(seqnames = B$chr,
+               ranges = IRanges(start = B$start, end = B$end))
+
+# ---- Find B fully inside A ----
+hits <- findOverlaps(grB, grA, type = "within")
+
+# ---- Extract results ----
+result <- data.frame(
+  B_chr   = as.character(seqnames(grB))[queryHits(hits)],
+  B_start = start(grB)[queryHits(hits)],
+  B_end   = end(grB)[queryHits(hits)],
+
+  A_chr   = as.character(seqnames(grA))[subjectHits(hits)],
+  A_start = start(grA)[subjectHits(hits)],
+  A_end   = end(grA)[subjectHits(hits)],
+
+  A_label = mcols(grA)$label[subjectHits(hits)]
+)
+
+# ---- Output ----
+if (is.na(outfile)) {
+  write.table(result, stdout(), sep = "\t", quote = FALSE, row.names = FALSE)
+} else {
+  write.table(result, file = outfile, sep = "\t", quote = FALSE, row.names = FALSE)
+}
+```
