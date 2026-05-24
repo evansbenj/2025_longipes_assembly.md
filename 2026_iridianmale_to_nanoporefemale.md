@@ -197,5 +197,5 @@ if (is.na(outfile)) {
 # Check out the names of genez
 
 ```
-cut -f7 Coding_intervals_in_lenduflyefem_with_no_coverage_in_lenduiridianmal.txt | cut -f3 -d '_' | uniq
+cut -f7 Coding_intervals_in_lenduflyefem_with_no_coverage_in_lenduiridianmal.txt | cut -f3 -d '_' | sort | uniq
 ```
