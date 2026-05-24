@@ -20,7 +20,7 @@ module load StdEnv/2023  gcc/12.3 samtools/1.20
 samtools depth -aa ${1} | grep '	0' >> ${1}_zerodepth_aa.txt
 ```
 
-# Make this into intervals
+# Make this in to intervals that have zero coverage
 
 ```pl
 #!/usr/bin/perl
@@ -62,4 +62,21 @@ while (<STDIN>) {
 if (defined $prev_contig) {
     print join("\t", $prev_contig, $start, $end), "\n";
 }
+```
+# Identify coding regions by blasting XL_CDS to nanopore genome:
+```
+#SBATCH --time=6:00:00
+#SBATCH --mem=32gb
+#SBATCH --output=blastn.%J.out
+#SBATCH --error=blastn.%J.err
+#SBATCH --account=rrg-ben
+
+
+module load StdEnv/2023 gcc/12.3 blast+/2.14.1 
+
+blastn -query ${1} -db ${2} -outfmt "6 std qlen" | awk '($4/$13) >= 0.75' > ${1}_to_${2}
+```
+output is here:
+```
+/home/ben/projects/rrg-ben/ben/2025_longipes/flye_assembly/XL_CDS_only.fasta_to_assembly.fasta.gz_blastable
 ```
