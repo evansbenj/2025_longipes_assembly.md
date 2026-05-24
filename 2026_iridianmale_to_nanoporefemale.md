@@ -194,3 +194,8 @@ if (is.na(outfile)) {
   write.table(result, file = outfile, sep = "\t", quote = FALSE, row.names = FALSE)
 }
 ```
+# Check out the names of genez
+
+```
+cut -f7 Coding_intervals_in_lenduflyefem_with_no_coverage_in_lenduiridianmal.txt | cut -f3 -d '_' | uniq
+```
