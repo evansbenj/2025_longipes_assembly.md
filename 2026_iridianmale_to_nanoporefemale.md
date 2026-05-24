@@ -80,3 +80,7 @@ output is here:
 ```
 /home/ben/projects/rrg-ben/ben/2025_longipes/flye_assembly/XL_CDS_only.fasta_to_assembly.fasta.gz_blastable
 ```
+# Make an interval file that has all of the coding regions
+```
+awk '{print $2, $9, $10, $1}' XL_CDS_only.fasta_to_assembly.fasta.gz_blastable > XL_CDS_only.fasta_to_assembly.fasta.gz_blastable.bed
+```
