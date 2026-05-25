@@ -78,16 +78,16 @@ blastn -query ${1} -db ${2} -outfmt "6 std qlen" | awk '($4/$13) >= 0.75' > ${1}
 ```
 output is here:
 ```
-/home/ben/projects/rrg-ben/ben/2025_longipes/flye_assembly/XL_CDS_only.fasta_to_assembly.fasta.gz_blastable
+/home/ben/projects/rrg-ben/ben/2025_longipes/flye_assembly/XL_CDS_only_nospaces.fasta_to_lendu_flye_assembly.fasta_blastable
 ```
 # Make an interval file that has all of the coding regions
 ```
-awk '{print $2, $9, $10, $1}' XL_CDS_only.fasta_to_assembly.fasta.gz_blastable > XL_CDS_only.fasta_to_assembly.fasta.gz_blastable.bed
+awk '{print $2, $9, $10, $1}' XL_CDS_only_nospaces.fasta_to_lendu_flye_assembly.fasta_blastable > XL_CDS_only_nospaces.fasta_to_assembly.fasta.gz_blastable.bed
 ```
 
 # Change the spaces to tabs
 ```
-sed -ie 's/ /    /g' XL_CDS_only.fasta_to_assembly.fasta.gz_blastable.bed
+sed -ie 's/ /    /g' XL_CDS_only_nospaces.fasta_to_assembly.fasta.gz_blastable.bed
 ```
 
 # Load Bioconductor on ComputeCanada
