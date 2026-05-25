@@ -122,8 +122,6 @@ fileB <- args[2]
 outfile <- ifelse(length(args) >= 3, args[3], NA)
 
 # ---- Read files ----
-
-
 A <- read.table(fileA, header = FALSE, sep = "",
                 stringsAsFactors = FALSE, quote = "")
 
@@ -171,8 +169,26 @@ grA <- GRanges(seqnames = A$chr,
 grB <- GRanges(seqnames = B$chr,
                ranges = IRanges(start = B$start, end = B$end))
 
-# ---- Find B fully inside A ----
-hits <- findOverlaps(grB, grA, type = "within")
+
+# ---- Find overlaps ----
+hits <- findOverlaps(grB, grA)
+
+# Compute overlap widths
+ov_width <- width(pintersect(grB[queryHits(hits)], grA[subjectHits(hits)]))
+
+# Compute width of A intervals
+A_width <- width(grA)[subjectHits(hits)]
+
+# Fraction of A covered by B
+frac_overlap_A <- ov_width / A_width
+
+# Keep only overlaps >= 75%
+keep <- frac_overlap_A >= 0.75
+
+hits <- hits[keep]
+ov_width <- ov_width[keep]
+frac_overlap_A <- frac_overlap_A[keep]
+
 
 # ---- Extract results ----
 result <- data.frame(
@@ -184,7 +200,11 @@ result <- data.frame(
   A_start = start(grA)[subjectHits(hits)],
   A_end   = end(grA)[subjectHits(hits)],
 
-  A_label = mcols(grA)$label[subjectHits(hits)]
+  A_label = mcols(grA)$label[subjectHits(hits)],
+
+  overlap_bp = ov_width,
+  frac_of_A  = frac_overlap_A
+
 )
 
 # ---- Output ----
@@ -193,6 +213,7 @@ if (is.na(outfile)) {
 } else {
   write.table(result, file = outfile, sep = "\t", quote = FALSE, row.names = FALSE)
 }
+
 ```
 # Check out the names of genez
 
