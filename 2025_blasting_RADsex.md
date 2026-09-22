@@ -99,6 +99,10 @@ XLgenes mostly from Chr4L and 4S hit contig_47634: Chr4L:15581489-15581560 to Ch
 * Blasting these to the longipes_hifi assembly results in 87,021 hits to 1,170 unique contigs
 
 I can check what 100kb windows are best represented like this:
+set an environmental variable:
+```
+WINDOW=100000
+```
 ``` bash
 awk -v W=$WINDOW '
 {
