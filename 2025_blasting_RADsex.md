@@ -94,4 +94,26 @@ XLgenes from several chrs hit contig_35104, but many were around Chr2S:141958902
 XLgenes mostly from Chr4L and 4S hit contig_47634: Chr4L:15581489-15581560 to Chr4L:15605557-15606836 and Chr4S:8326631-8327910 to Chr4S:8357975-8358046
 
 
+# More 2026
+* There are 38 mostly female specific RADtags
+* Blasting these to the longipes_hifi assembly results in 87,021 hits to 1,170 unique contigs
+
+I can check what 100kb windows are best represented like this:
+``` bash
+awk -v W=$WINDOW '
+{
+    chr=$2
+
+    # handle reverse hits
+    start=($9<$10)?$9:$10
+
+    win=int(start/W)*W
+    print chr, win
+}
+' RADsex_mostly_female_to_longipes_hifiasm.txt |
+sort |
+uniq -c |
+sort -nr |
+head
+```
 
