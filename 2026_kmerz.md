@@ -1,6 +1,6 @@
 # Plotting fem_specific kmerz in genomic windows
 
-I'm going to generate a dbof fem specifci kmers by subtracting the iridian male from the nanopore female. Then...
+I'm going to generate a db of fem specifci kmers by subtracting the iridian male from the nanopore female. Then...
 * Make genomic windows:
 ```
 cut -f1,2 longipes_hifiasm.bp.p_ctg.fa.fai > genome.sizes
